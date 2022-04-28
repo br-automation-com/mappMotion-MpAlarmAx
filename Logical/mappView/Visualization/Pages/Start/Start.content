@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Content id="contentStart" height="700" width="1000" xmlns="http://www.br-automation.com/iat2015/contentDefinition/v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Widgets>
+    <Widget xsi:type="widgets.brease.GroupBox" id="grpConfig" top="10" left="10" width="970" height="485" zIndex="0" text="Drive configuration">
+      <Widgets>
+        <Widget xsi:type="widgets.brease.Label" id="labNettime1" top="8" left="54" width="100" height="40" zIndex="0" text="Velocity" textAlign="right" fontSize="20px" bold="true" />
+        <Widget xsi:type="widgets.brease.NumericInput" id="numVelocity" top="13" left="164" width="116" height="27" zIndex="1" format="{'metric':{'decimalPlaces':0,'minimumIntegerDigits':1},'imperial':{'decimalPlaces':0,'minimumIntegerDigits':1},'imperial-us':{'decimalPlaces':0,'minimumIntegerDigits':1}}" maxValue="14000" fontSize="18px" padding="0px 5px 0px 5px" />
+        <Widget xsi:type="widgets.brease.Label" id="labNettime2" top="43" left="14" width="138" height="40" zIndex="2" text="Acceleration" textAlign="right" fontSize="20px" bold="true" />
+        <Widget xsi:type="widgets.brease.NumericInput" id="numAcceleration" top="48" left="164" width="116" height="27" zIndex="3" format="{'metric':{'decimalPlaces':0,'minimumIntegerDigits':1},'imperial':{'decimalPlaces':0,'minimumIntegerDigits':1},'imperial-us':{'decimalPlaces':0,'minimumIntegerDigits':1}}" maxValue="10000" fontSize="18px" padding="0px 5px 0px 5px" />
+        <Widget xsi:type="widgets.brease.NumericOutput" id="txtVelocityCurrent" top="13" left="304" width="120" height="27" zIndex="4" format="{'metric':{'decimalPlaces':0,'minimumIntegerDigits':1},'imperial':{'decimalPlaces':0,'minimumIntegerDigits':1},'imperial-us':{'decimalPlaces':0,'minimumIntegerDigits':1}}" borderWidth="2px" cornerRadius="5px" fontSize="18px" padding="0px 5px 0px 5px" />
+        <Widget xsi:type="widgets.brease.NumericOutput" id="txtPositionCurrent" top="83" left="304" width="120" height="27" zIndex="5" format="{'metric':{'decimalPlaces':0,'minimumIntegerDigits':1},'imperial':{'decimalPlaces':0,'minimumIntegerDigits':1},'imperial-us':{'decimalPlaces':0,'minimumIntegerDigits':1}}" borderWidth="2px" cornerRadius="5px" fontSize="18px" padding="0px 5px 0px 5px" />
+        <Widget xsi:type="widgets.brease.Label" id="labNettime3" top="78" left="14" width="138" height="40" zIndex="6" text="Position" textAlign="right" fontSize="20px" bold="true" />
+        <Widget xsi:type="widgets.brease.ToggleButton" id="btnMoveVelocity" top="8" left="714" width="191" height="42" zIndex="7" mouseDownText="Stop" text="Velocity" fontSize="24px" bold="true" style="Operate" />
+        <Widget xsi:type="widgets.brease.ToggleButton" id="btnDrivePower" top="8" left="474" width="191" height="42" zIndex="8" mouseDownText="Power off" text="Power" fontSize="24px" bold="true" style="Operate" />
+        <Widget xsi:type="widgets.brease.MomentaryPushButton" id="btnAckAxisError" top="108" left="474" width="191" height="40" zIndex="9" mouseDownText="Ack" text="Ack Error" fontSize="24px" bold="true" style="Operate" />
+        <Widget xsi:type="widgets.brease.MomentaryPushButton" id="btnHomeAxis" top="58" left="474" width="191" height="40" zIndex="10" mouseDownText="Home" text="Home" fontSize="24px" bold="true" style="Operate" />
+        <Widget xsi:type="widgets.brease.NumericInput" id="numPosition" top="83" left="164" width="116" height="27" zIndex="11" format="{'metric':{'decimalPlaces':0,'minimumIntegerDigits':1},'imperial':{'decimalPlaces':0,'minimumIntegerDigits':1},'imperial-us':{'decimalPlaces':0,'minimumIntegerDigits':1}}" maxValue="10000" fontSize="18px" padding="0px 5px 0px 5px" />
+        <Widget xsi:type="widgets.brease.MomentaryPushButton" id="btnMovePosition" top="58" left="714" width="191" height="42" zIndex="12" mouseDownText="Stop" text="Position" fontSize="24px" bold="true" style="Operate" />
+      </Widgets>
+    </Widget>
+  </Widgets>
+</Content>

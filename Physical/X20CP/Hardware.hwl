@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?AutomationStudio FileVersion="4.9"?>
+<BR.AS.HardwareTopology>
+  <TimeStamps>
+    <TimeStamp LogicalPath="X20CP.Hardware.hw" LastWriteTime="04/28/2022 11:48:42" />
+  </TimeStamps>
+  <Modules>
+    <Module Name="X20CP3585" Type="X20CP3585" X="100" Y="100" />
+    <Module Name="8V1010.001-2" Type="8V1010.001-2" X="300" Y="249" />
+    <Module Name="8AC120.60-1" Type="8AC120.60-1" X="314" Y="364.5" />
+    <Module Name="8AC114.60-2" Type="8AC114.60-2" X="302.8" Y="364.5" />
+  </Modules>
+  <Links>
+    <Link From="X20CP3585" To="8AC114.60-2" FromPort="IF3" ToPort="PLK1" IsRoutedByUser="False">
+      <Point X="156" Y="187" />
+      <Point X="156" Y="187" />
+      <Point X="156" Y="200" />
+      <Point X="156" Y="392.3" />
+      <Point X="299.9" Y="392.3" />
+      <Point X="308.9" Y="392.3" />
+      <Point X="308.9" Y="392.3" />
+    </Link>
+  </Links>
+  <InfoElements />
+</BR.AS.HardwareTopology>
