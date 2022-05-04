@@ -1,0 +1,10 @@
+(*Local constants*)
+VAR CONSTANT
+	MAX_NO_ENTRIES : USINT := 10; (*Maximum number of records*)
+	OVERRIDE : USINT := 10; (*Number of executions per cycle*)
+END_VAR
+(*Error numbers*)
+VAR CONSTANT
+	ERROR_MAX_NO_ENTRIES : UINT := 10000; (*Maximum number of records reached*)
+	ERROR_AXIS_NAME : UINT := 10001; (*Axis name is empty*)
+END_VAR

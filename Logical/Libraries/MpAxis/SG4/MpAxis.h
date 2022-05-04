@@ -1,6 +1,6 @@
 /* Automation Studio generated header file */
 /* Do not edit ! */
-/* MpAxis 5.17.1 */
+/* MpAxis 5.18.0 */
 
 #ifndef _MPAXIS_
 #define _MPAXIS_
@@ -9,7 +9,7 @@ extern "C"
 {
 #endif
 #ifndef _MpAxis_VERSION
-#define _MpAxis_VERSION 5.17.1
+#define _MpAxis_VERSION 5.18.0
 #endif
 
 #include <bur/plctypes.h>
@@ -246,6 +246,7 @@ typedef struct MpAxisBasicInfoType
 	float AutoTuneQuality;
 	struct McHardwareInfoType HardwareInfo;
 	enum McAutoTuneStateEnum AutoTuneState;
+	enum McMechDevCompStateEnum MechDeviationCompState;
 } MpAxisBasicInfoType;
 
 typedef struct MpAxisOffsetParType

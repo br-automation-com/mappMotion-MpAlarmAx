@@ -1,6 +1,6 @@
 /* Automation Studio generated header file */
 /* Do not edit ! */
-/* McAxis 5.17.1 */
+/* McAxis 5.18.0 */
 
 #ifndef _MCAXIS_
 #define _MCAXIS_
@@ -9,7 +9,7 @@ extern "C"
 {
 #endif
 #ifndef _McAxis_VERSION
-#define _McAxis_VERSION 5.17.1
+#define _McAxis_VERSION 5.18.0
 #endif
 
 #include <bur/plctypes.h>
@@ -187,7 +187,8 @@ typedef enum McCamAutExceedingLimitsEnum
 typedef enum McCamAutGetParCmdEnum
 {	mcGET_PAR_FROM_OBJECT,
 	mcGET_PAR_ACTUAL,
-	mcGET_PAR_DEFAULT
+	mcGET_PAR_DEFAULT,
+	mcGET_PAR_PRESET
 } McCamAutGetParCmdEnum;
 
 typedef enum McCamAutSetParCmdEnum
@@ -228,7 +229,8 @@ typedef enum McCamAutCompModeEnum
 	mcCOMP_VELOCITY_S_SL = 38,
 	mcCOMP_VELOCITY_A_SL = 36,
 	mcCOMP_VELOCITY_A_CYC = 39,
-	mcCOMP_MA_SL_ABSOLUTE = 40
+	mcCOMP_MA_SL_ABSOLUTE = 40,
+	mcCOMP_MA_IV_SL_ABSOLUTE = 41
 } McCamAutCompModeEnum;
 
 typedef enum McCamAutEventTypeEnum
@@ -624,7 +626,8 @@ typedef enum McAFBACPBrkTstAutStEvntEnum
 } McAFBACPBrkTstAutStEvntEnum;
 
 typedef enum McMDCTypeEnum
-{	mcMDCT_ACP = 0
+{	mcMDCT_ACP = 0,
+	mcMDCT_STP_OR_GEN_PUR_AX = 1
 } McMDCTypeEnum;
 
 typedef enum McMDCACalcEnum
@@ -666,6 +669,22 @@ typedef enum McMDCDatIntEnum
 {	mcMDCDI_NOT_PER = 0,
 	mcMDCDI_PER = 1
 } McMDCDatIntEnum;
+
+typedef enum McMDCModeStpEnum
+{	mcMDCMS_DIR_DEP_CONST_BCKL = 0,
+	mcMDCMS_DIR_DEP_SET_POS = 1,
+	mcMDCMS_DIR_IND = 2,
+	mcMDCMS_DIR_IND_W_BCKL = 3
+} McMDCModeStpEnum;
+
+typedef enum McMDCPosSrcStpEnum
+{	mcMDCPSS_SET_POS = 0
+} McMDCPosSrcStpEnum;
+
+typedef enum McAFANERNetwErrReacEnum
+{	mcAFANERNER_DEF = 0,
+	mcAFANERNER_DELAYED = 1
+} McAFANERNetwErrReacEnum;
 
 typedef struct McLibraryInfoType
 {	plcstring Name[33];
@@ -1564,14 +1583,79 @@ typedef struct McMDCTypeAcpType
 	struct McMDCModeType MechDevnCompMode;
 } McMDCTypeAcpType;
 
+typedef struct McMDCDirDepConstBcklStpType
+{	double Backlash;
+	enum McMDCPosSrcStpEnum PositionSource;
+	enum McMDCStEdgEnum StartEdge;
+	float Velocity;
+	float TimeConstant;
+	float NoiseLimit;
+} McMDCDirDepConstBcklStpType;
+
+typedef struct McMDCDirDepSetPosStpType
+{	struct McMDCCompDatType CompensationDataPositive;
+	struct McMDCCompDatType CompensationDataNegative;
+	enum McMDCPosSrcStpEnum PositionSource;
+	enum McMDCDatIntEnum DataInterpretation;
+	enum McMDCStEdgEnum StartEdge;
+	float Velocity;
+	float TimeConstant;
+	float NoiseLimit;
+} McMDCDirDepSetPosStpType;
+
+typedef struct McMDCDirIndStpType
+{	struct McMDCCompDatType CompensationData;
+	enum McMDCPosSrcStpEnum PositionSource;
+	enum McMDCDatIntEnum DataInterpretation;
+} McMDCDirIndStpType;
+
+typedef struct McMDCDirIndBcklStpType
+{	struct McMDCCompDatType CompensationDataPositive;
+	double Backlash;
+	enum McMDCPosSrcStpEnum PositionSource;
+	enum McMDCDatIntEnum DataInterpretation;
+	enum McMDCStEdgEnum StartEdge;
+	float Velocity;
+	float TimeConstant;
+	float NoiseLimit;
+} McMDCDirIndBcklStpType;
+
+typedef struct McMDCModeStpType
+{	enum McMDCModeStpEnum Type;
+	struct McMDCDirDepConstBcklStpType DirDepConstBckl;
+	struct McMDCDirDepSetPosStpType DirDepSetPos;
+	struct McMDCDirIndStpType DirInd;
+	struct McMDCDirIndBcklStpType DirIndWBckl;
+} McMDCModeStpType;
+
+typedef struct McMDCTypeStpOrGenPurAxType
+{	enum McMDCACalcEnum AutomaticCalculation;
+	enum McMDCAActiEnum AutomaticActivation;
+	struct McMDCModeStpType MechDevnCompModeStp;
+} McMDCTypeStpOrGenPurAxType;
+
 typedef struct McMDCTypeType
 {	enum McMDCTypeEnum Type;
 	struct McMDCTypeAcpType ACOPOS;
+	struct McMDCTypeStpOrGenPurAxType StepperOrGeneralPurposeAxis;
 } McMDCTypeType;
 
 typedef struct McCfgAxFeatMechDevCompType
 {	struct McMDCTypeType MechDevnCompType;
 } McCfgAxFeatMechDevCompType;
+
+typedef struct McAFANERNetwErrReacDelayedType
+{	float DelayTime;
+} McAFANERNetwErrReacDelayedType;
+
+typedef struct McAFANERNetwErrReacType
+{	enum McAFANERNetwErrReacEnum Type;
+	struct McAFANERNetwErrReacDelayedType Delayed;
+} McAFANERNetwErrReacType;
+
+typedef struct McCfgAxFeatAcpNetwErrReacType
+{	struct McAFANERNetwErrReacType NetworkErrorReaction;
+} McCfgAxFeatAcpNetwErrReacType;
 
 typedef struct MC_BR_GetAxisLibraryInfo
 {

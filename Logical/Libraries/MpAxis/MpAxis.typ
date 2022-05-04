@@ -52,10 +52,11 @@ TYPE
 		LibraryInfo : McLibraryInfoType; (*Library info about the specific axis implementation*)
 		CommunicationState : McCommunicationStateEnum; (*Communication state*)
 		StartupCount : UDINT; (*Number of times the drive was started up since the last PLC start*)
-		AutoTuneDone : BOOL;
-		AutoTuneQuality : REAL;
-		HardwareInfo : McHardwareInfoType;
+		AutoTuneDone : BOOL; (*AutoTune command status*)
+		AutoTuneQuality : REAL; (*Quality factor from executed AutoTune command*)
+		HardwareInfo : McHardwareInfoType; (*Hardware info*)
 		AutoTuneState : McAutoTuneStateEnum; (* Status of the auto tune activity on the drive*)
+		MechDeviationCompState : McMechDevCompStateEnum; (*Status of mechanical deviation compensation*)
 	END_STRUCT;
 	MpAxisDiagExtType : 	STRUCT 
 		StatusID : MpAxisStatusIDType; (*StatusID information*)

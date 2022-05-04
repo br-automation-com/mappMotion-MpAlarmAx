@@ -1,12 +1,8 @@
 VAR
 	MpAxisBasicPar_0 : MpAxisBasicParType; (*Motion parameters*)
 	MpAxisBasic_0 : MpAxisBasic; (*Basic motion function block*)
+	MpAxisAlarm_0 : MpAxisAlarm;
 	AxisVelocity : REAL := 360; (*Velocity for movement*)
-	AxisAcceleration : REAL := 36000; (*Acceleration and deceleration for movement*)
-	AxisPosition : REAL := 36000; (*Acceleration and deceleration for movement*)
-	cmdAxisHome : BOOL;
-	cmdAxisPower : BOOL;
-	cmdAxisMoveVelocity : BOOL;
-	cmdAxisMoveAbs : BOOL;
-	cmdAxisErrorReset : BOOL;
+	AxisAcceleration : REAL := 3600; (*Acceleration and deceleration for movement*)
+	AxisPosition : REAL := 3600; (*Acceleration and deceleration for movement*)
 END_VAR
