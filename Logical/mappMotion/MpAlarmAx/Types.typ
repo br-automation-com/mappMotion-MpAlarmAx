@@ -21,26 +21,29 @@ TYPE
 		fbArEventLogReadObjectID : ArEventLogReadObjectID;
 		fbArEventLogReadErrorNumber : ArEventLogReadErrorNumber;
 		fbArEventLogReadDescription : ArEventLogReadDescription;
+		fbMC_ReadAxisError : MC_ReadAxisError;
+		fbMC_BR_GetHardwareInfo : MC_BR_GetHardwareInfo;
 		State : State_enum;
 		InternalDescription : STRING[256];
 		FB_httpUtf8ToString : httpUtf8ToString;
 		RecordID : ArEventLogRecordIDType;
-		EventIDFound : BOOL;
+		EventID : DINT;
+		GetParent : BOOL;
+		tmpDT : DATE_AND_TIME;
+		tmpDTstruct : DTStructure;
 		j : UINT;
 		k : UINT;
 	END_STRUCT;
 	Records_typ : 	STRUCT 
-		ObjectID : STRING[36];
-		ErrorNumber : UDINT;
-		Severity : USINT;
-		RecordID : ArEventLogRecordIDType;
-		OriginRecordID : ArEventLogRecordIDType;
-		EventID : DINT;
-		ErrorText : STRING[200];
-		AddData : ARRAY[0..256]OF USINT;
-		AddDataFormat : USINT;
-		AddDataSize : UDINT;
-		TimeStamp : ArEventLogTimeStampType;
+		ErrorNumber : ARRAY[0..MAX_NO_ENTRIES]OF UDINT;
+		Severity : ARRAY[0..MAX_NO_ENTRIES]OF USINT;
+		RecordID : ARRAY[0..MAX_NO_ENTRIES]OF ArEventLogRecordIDType;
+		OriginRecordID : ARRAY[0..MAX_NO_ENTRIES]OF ArEventLogRecordIDType;
+		EventID : ARRAY[0..MAX_NO_ENTRIES]OF DINT;
+		ErrorText : ARRAY[0..MAX_NO_ENTRIES]OF STRING[200];
+		TimeStamp : ARRAY[0..MAX_NO_ENTRIES]OF STRING[25]; (*Date and time*)
+		DTsec : ARRAY[1..MAX_NO_ENTRIES]OF UDINT; (*Date and time in sec*)
+		DTmsec : ARRAY[1..MAX_NO_ENTRIES]OF UDINT; (*Additional milliseconds*)
 	END_STRUCT;
 	ReadEvLogEntriesLanguage_enum : 
 		(

@@ -28,9 +28,6 @@ PROGRAM _CYCLIC
 	IF MpAxisBasic_0.Error THEN
 		MpAxisBasic_0.MoveVelocity := FALSE;
 		MpAxisBasic_0.MoveAbsolute := FALSE;
-		MpAxisAlarm_0.Execute := TRUE;
-	ELSE
-		MpAxisAlarm_0.Execute := FALSE;
 	END_IF
 	
 	// Motion basic function block call
@@ -40,7 +37,8 @@ PROGRAM _CYCLIC
 	MpAxisBasic_0();
 
 	// Motion alarm function block call
-	MpAxisAlarm_0.AxisName := 'gAxis_1';
+	MpAxisAlarm_0.Axis := ADR(gAxis_1);
+	MpAxisAlarm_0.Execute := MpAxisBasic_0.Error;
 	MpAxisAlarm_0.ErrorID := MpAxisBasic_0.Info.Diag.Internal.ID;
 	MpAxisAlarm_0();
 		

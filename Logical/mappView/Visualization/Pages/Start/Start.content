@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Content id="contentStart" height="700" width="1600" xmlns="http://www.br-automation.com/iat2015/contentDefinition/v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<Content id="contentStart" height="700" width="1600" xmlns="http://www.br-automation.com/iat2015/contentDefinition/v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:types="http://www.br-automation.com/iat2015/widgetTypes/v2">
   <Widgets>
-    <Widget xsi:type="widgets.brease.GroupBox" id="grpConfig" top="10" left="10" width="1580" height="485" zIndex="0" text="Drive configuration">
+    <Widget xsi:type="widgets.brease.GroupBox" id="grpConfig" top="10" left="10" width="1580" height="225" zIndex="0" text="Drive configuration">
       <Widgets>
         <Widget xsi:type="widgets.brease.Label" id="labNettime1" top="8" left="54" width="100" height="40" zIndex="0" text="Velocity" textAlign="right" fontSize="20px" bold="true" />
         <Widget xsi:type="widgets.brease.NumericInput" id="numVelocity" top="13" left="164" width="116" height="27" zIndex="1" format="{'metric':{'decimalPlaces':0,'minimumIntegerDigits':1},'imperial':{'decimalPlaces':0,'minimumIntegerDigits':1},'imperial-us':{'decimalPlaces':0,'minimumIntegerDigits':1}}" maxValue="14000" fontSize="18px" padding="0px 5px 0px 5px" />
@@ -20,6 +20,13 @@
         <Widget xsi:type="widgets.brease.ToggleButton" id="btnDriveVelocity" top="13" left="434" width="191" height="42" zIndex="14" mouseDownText="Stop" text="Velocity" fontSize="24px" bold="true" style="Operate" />
         <Widget xsi:type="widgets.brease.ToggleButton" id="btnDrivePosition" top="63" left="434" width="191" height="42" zIndex="15" mouseDownText="Stop" text="Position" fontSize="24px" bold="true" style="Operate" />
         <Widget xsi:type="widgets.brease.ToggleButton" id="btnDriveStop" top="113" left="434" width="191" height="42" zIndex="16" mouseDownText="Stop" text="Stop" fontSize="24px" bold="true" style="Operate" />
+      </Widgets>
+    </Widget>
+    <Widget xsi:type="widgets.brease.Table" id="tblLogbookData" top="260" left="15" width="1570" height="275" zIndex="1" headerSize="30" multiLine="true" rowHeight="15" showSortingButton="true" wordWrap="true" backColorEvenRow="rgba(224, 224, 224, 1)" backColorOddRow="rgba(192, 192, 192, 1)" borderStyle="solid" borderWidth="1px" cellAlign="left center" cellPadding="3px" fontSize="14px" headerFontSize="18px">
+      <Widgets>
+        <Widget xsi:type="widgets.brease.TableItem" id="tblTimestamp" zIndex="0" columnWidth="120" rowHeight="15" text="Time Stamp" cellAlign="left center" />
+        <Widget xsi:type="widgets.brease.TableItem" id="tblErrorNo" zIndex="1" columnWidth="110" format="{'metric':{'decimalPlaces':0,'minimumIntegerDigits':1,'maximumIntegerDigits':12},'imperial':{'decimalPlaces':0,'minimumIntegerDigits':1,'maximumIntegerDigits':12},'imperial-us':{'decimalPlaces':0,'minimumIntegerDigits':1,'maximumIntegerDigits':12}}" rowHeight="15" text="No" cellAlign="right center" />
+        <Widget xsi:type="widgets.brease.TableItem" id="tblErrorText" zIndex="2" columnWidth="1310" rowHeight="15" text="Error Text" cellAlign="left center" />
       </Widgets>
     </Widget>
   </Widgets>

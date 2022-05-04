@@ -57,5 +57,17 @@
 <Source xsi:type="opcUa" refId="::Axis:MpAxisBasic_0.Stop" attribute="value" />
 <Target xsi:type="brease" contentRefId="contentStart" widgetRefId="btnDriveStop" attribute="value" />
 </Binding>
+<Binding mode="twoWay">
+<Source xsi:type="opcUa" refId="::Axis:MpAxisAlarm_0.Data.Records.TimeStamp" attribute="value" />
+<Target xsi:type="brease" contentRefId="contentStart" widgetRefId="tblTimestamp" attribute="stringValue" />
+</Binding>
+<Binding mode="twoWay">
+<Source xsi:type="opcUa" refId="::Axis:MpAxisAlarm_0.Data.Records.EventID" attribute="node" />
+<Target xsi:type="brease" contentRefId="contentStart" widgetRefId="tblErrorNo" attribute="node" />
+</Binding>
+<Binding mode="twoWay">
+<Source xsi:type="opcUa" refId="::Axis:MpAxisAlarm_0.Data.Records.ErrorText" attribute="value" />
+<Target xsi:type="brease" contentRefId="contentStart" widgetRefId="tblErrorText" attribute="stringValue" />
+</Binding>
 </Bindings>
 </BindingsSet>

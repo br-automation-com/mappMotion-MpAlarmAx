@@ -2,10 +2,8 @@
 <?AutomationStudio FileVersion="4.9"?>
 <Package xmlns="http://br-automation.co.at/AS/Package">
   <Objects>
-    <Object Type="File" Description="Local variables">GlobalVar.var</Object>
-    <Object Type="File" Description="Local data types">GlobalTypes.typ</Object>
     <Object Type="Program" Language="IEC">Axis</Object>
-    <Object Type="File">changelog.txt</Object>
     <Object Type="Library" Language="IEC" Description="Only datatypes">MpAlarmAx</Object>
+    <Object Type="File">changelog.txt</Object>
   </Objects>
 </Package>

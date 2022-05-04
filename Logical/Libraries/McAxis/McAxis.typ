@@ -256,8 +256,7 @@ TYPE
 	(
 		mcGET_PAR_FROM_OBJECT,  (*Copies parameters from a cam configuration object*)
 		mcGET_PAR_ACTUAL,  (*Copies parameters from the configured cam automat for the axis*)
-		mcGET_PAR_DEFAULT,  (*Copies parameters from the preconfigured cam automat configuration object for the axis*)
-		mcGET_PAR_PRESET  (*Copies preset values of the cam automat*)
+		mcGET_PAR_DEFAULT  (*Copies parameters from the preconfigured cam automat configuration object for the axis*)
 	);
 
 	McCamAutSetParCmdEnum:
@@ -302,8 +301,7 @@ TYPE
 		mcCOMP_VELOCITY_S_SL := 38, 		 (*Minimum jerk velocity mode with slave target distance*)
 		mcCOMP_VELOCITY_A_SL := 36, 		(*time optimal jolt limited velocity mode*)
 		mcCOMP_VELOCITY_A_CYC := 39, 		 (*Time-optimized jerk-limited velocity mode, cyclical master velocity determination*)
-		mcCOMP_MA_SL_ABSOLUTE := 40, 		 	     (*Absolute master and slave position when compensation is finished*)
-		mcCOMP_MA_IV_SL_ABSOLUTE := 41		(*Periodic master and absolute slave position when compensation is finished*)
+		mcCOMP_MA_SL_ABSOLUTE := 40 		 	     (*Absolute master and slave position when compensation is finished*)
 	);
 
 	McCamAutEventTypeEnum:

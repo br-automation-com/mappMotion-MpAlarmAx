@@ -514,8 +514,7 @@ TYPE
 	END_STRUCT;
 	McMDCTypeEnum :
 		( (*Mechanical deviation compensation type selector setting*)
-		mcMDCT_ACP := 0, (*ACOPOS - ACOPOS mechanical deviation compensation*)
-		mcMDCT_STP_OR_GEN_PUR_AX := 1 (*Stepper or General purpose axis - Stepper or General purpose axis mechanical deviation compensation*)
+		mcMDCT_ACP := 0 (*ACOPOS - ACOPOS mechanical deviation compensation*)
 		);
 	McMDCACalcEnum :
 		( (*Automatic compensation calculation at axis startup*)
@@ -626,83 +625,11 @@ TYPE
 		AutomaticActivation : McMDCAActiEnum; (*Automatic compensation activation after axis homing*)
 		MechDevnCompMode : McMDCModeType; (*Mode for compensating mechanical deviations*)
 	END_STRUCT;
-	McMDCModeStpEnum :
-		( (*Mode selector setting*)
-		mcMDCMS_DIR_DEP_CONST_BCKL := 0, (*Dir Dep Const Bckl - Direction dependent constant backlash*)
-		mcMDCMS_DIR_DEP_SET_POS := 1, (*Dir Dep Set Pos - Direction dependent set position*)
-		mcMDCMS_DIR_IND := 2, (*Dir Ind - Direction independent*)
-		mcMDCMS_DIR_IND_W_BCKL := 3 (*Dir Ind W Bckl - Direction independent compensation data and backlash*)
-		);
-	McMDCPosSrcStpEnum :
-		( (*Position source*)
-		mcMDCPSS_SET_POS := 0 (*Set position - Set position*)
-		);
-	McMDCDirDepConstBcklStpType : STRUCT (*Type mcMDCMS_DIR_DEP_CONST_BCKL settings*)
-		Backlash : LREAL; (*Backlash [Measurement units]*)
-		PositionSource : McMDCPosSrcStpEnum; (*Position source*)
-		StartEdge : McMDCStEdgEnum; (*Edge at which compensation is started*)
-		Velocity : REAL; (*Velocity for edge change [Measurement units/s]*)
-		TimeConstant : REAL; (*Time constant of the exponential function for edge change [s]*)
-		NoiseLimit : REAL; (*Noise limit [%]*)
-	END_STRUCT;
-	McMDCDirDepSetPosStpType : STRUCT (*Type mcMDCMS_DIR_DEP_SET_POS settings*)
-		CompensationDataPositive : McMDCCompDatType; (*Compensation data for movement in positive direction*)
-		CompensationDataNegative : McMDCCompDatType; (*Compensation data for movement in negative direction*)
-		PositionSource : McMDCPosSrcStpEnum; (*Position source*)
-		DataInterpretation : McMDCDatIntEnum; (*Compensation data is interpreted as periodic*)
-		StartEdge : McMDCStEdgEnum; (*Edge at which compensation is started*)
-		Velocity : REAL; (*Velocity for edge change [Measurement units/s]*)
-		TimeConstant : REAL; (*Time constant of the exponential function for edge change [s]*)
-		NoiseLimit : REAL; (*Noise limit [%]*)
-	END_STRUCT;
-	McMDCDirIndStpType : STRUCT (*Type mcMDCMS_DIR_IND settings*)
-		CompensationData : McMDCCompDatType; (*Compensation data for movement*)
-		PositionSource : McMDCPosSrcStpEnum; (*Position source*)
-		DataInterpretation : McMDCDatIntEnum; (*Compensation data is interpreted as periodic*)
-	END_STRUCT;
-	McMDCDirIndBcklStpType : STRUCT (*Type mcMDCMS_DIR_IND_W_BCKL settings*)
-		CompensationDataPositive : McMDCCompDatType; (*Compensation data for movement in positive direction*)
-		Backlash : LREAL; (*Backlash [Measurement units]*)
-		PositionSource : McMDCPosSrcStpEnum; (*Position source*)
-		DataInterpretation : McMDCDatIntEnum; (*Compensation data is interpreted as periodic*)
-		StartEdge : McMDCStEdgEnum; (*Edge at which compensation is started*)
-		Velocity : REAL; (*Velocity for edge change [Measurement units/s]*)
-		TimeConstant : REAL; (*Time constant of the exponential function for edge change [s]*)
-		NoiseLimit : REAL; (*Noise limit [%]*)
-	END_STRUCT;
-	McMDCModeStpType : STRUCT (*Mode for compensating mechanical deviations*)
-		Type : McMDCModeStpEnum; (*Mode selector setting*)
-		DirDepConstBckl : McMDCDirDepConstBcklStpType; (*Type mcMDCMS_DIR_DEP_CONST_BCKL settings*)
-		DirDepSetPos : McMDCDirDepSetPosStpType; (*Type mcMDCMS_DIR_DEP_SET_POS settings*)
-		DirInd : McMDCDirIndStpType; (*Type mcMDCMS_DIR_IND settings*)
-		DirIndWBckl : McMDCDirIndBcklStpType; (*Type mcMDCMS_DIR_IND_W_BCKL settings*)
-	END_STRUCT;
-	McMDCTypeStpOrGenPurAxType : STRUCT (*Type mcMDCT_STP_OR_GEN_PUR_AX settings*)
-		AutomaticCalculation : McMDCACalcEnum; (*Automatic compensation calculation at axis startup*)
-		AutomaticActivation : McMDCAActiEnum; (*Automatic compensation activation after axis homing*)
-		MechDevnCompModeStp : McMDCModeStpType; (*Mode for compensating mechanical deviations*)
-	END_STRUCT;
 	McMDCTypeType : STRUCT (*Type of the mechanical deviation compensation*)
 		Type : McMDCTypeEnum; (*Mechanical deviation compensation type selector setting*)
 		ACOPOS : McMDCTypeAcpType; (*Type mcMDCT_ACP settings*)
-		StepperOrGeneralPurposeAxis : McMDCTypeStpOrGenPurAxType; (*Type mcMDCT_STP_OR_GEN_PUR_AX settings*)
 	END_STRUCT;
 	McCfgAxFeatMechDevCompType : STRUCT (*Main data type corresponding to McCfgTypeEnum mcCFG_AX_FEAT_MECH_DEV_COMP*)
 		MechDevnCompType : McMDCTypeType; (*Type of the mechanical deviation compensation*)
-	END_STRUCT;
-	McAFANERNetwErrReacEnum :
-		( (*Network error reaction selector setting*)
-		mcAFANERNER_DEF := 0, (*Default - Configured “Stop reaction / Drive error” is immediately executed after a network failure*)
-		mcAFANERNER_DELAYED := 1 (*Delayed - Configured “Stop reaction / Drive error” is delayed by a specified time*)
-		);
-	McAFANERNetwErrReacDelayedType : STRUCT (*Type mcAFANERNER_DELAYED settings*)
-		DelayTime : REAL; (*Delay time of network error reaction [s]*)
-	END_STRUCT;
-	McAFANERNetwErrReacType : STRUCT (*Reaction in case of a network error*)
-		Type : McAFANERNetwErrReacEnum; (*Network error reaction selector setting*)
-		Delayed : McAFANERNetwErrReacDelayedType; (*Type mcAFANERNER_DELAYED settings*)
-	END_STRUCT;
-	McCfgAxFeatAcpNetwErrReacType : STRUCT (*Main data type corresponding to McCfgTypeEnum mcCFG_AX_FEAT_ACP_NETW_ERR_REAC*)
-		NetworkErrorReaction : McAFANERNetwErrReacType; (*Reaction in case of a network error*)
 	END_STRUCT;
 END_TYPE

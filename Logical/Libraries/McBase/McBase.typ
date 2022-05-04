@@ -305,6 +305,7 @@ TYPE
 
 	McTrackingPathType : 	STRUCT
 		controlif : REFERENCE TO McInternalTrackingPathIfType; (**)
+		mappLinkInternal : McInternalMappLinkType; (**)
 	END_STRUCT;
 
 	McGetCoordSystemIdentParType : STRUCT
