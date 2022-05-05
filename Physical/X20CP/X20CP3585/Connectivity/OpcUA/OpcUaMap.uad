@@ -20,13 +20,22 @@
         <Variable Name="AxisAcceleration" />
         <Variable Name="AxisPosition" />
         <Variable Name="AxisVelocity" />
-        <Variable Name="cmdAxisErrorReset" />
-        <Variable Name="cmdAxisHome" />
-        <Variable Name="cmdAxisMoveAbs" />
-        <Variable Name="cmdAxisMoveVelocity" />
-        <Variable Name="cmdAxisPower" />
-        <Variable Name="MpAxisBasic_0" />
-        <Variable Name="MpAxisBasicPar_0" />
+        <Variable Name="MpAxisBasic_0" AutomaticEnable="True" />
+        <Variable Name="MpAxisBasicPar_0" AutomaticEnable="True" />
+        <Variable Name="MpAxisAlarm_0" AutomaticEnable="True">
+          <Variable Name="Data">
+            <Variable Name="Records">
+              <Variable Name="Severity" EnableArrayElements="True" />
+              <Variable Name="RecordID" EnableArrayElements="True" />
+              <Variable Name="OriginRecordID" EnableArrayElements="True" />
+              <Variable Name="EventID" EnableArrayElements="True" />
+              <Variable Name="ErrorText" EnableArrayElements="True" />
+              <Variable Name="TimeStamp" EnableArrayElements="True" />
+              <Variable Name="DTsec" EnableArrayElements="True" />
+              <Variable Name="DTmsec" EnableArrayElements="True" />
+            </Variable>
+          </Variable>
+        </Variable>
       </Task>
     </Module>
   </DefaultView>

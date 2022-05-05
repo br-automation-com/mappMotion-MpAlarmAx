@@ -3,35 +3,83 @@
 	<Bindings>
 		<Binding mode="oneWay">
 			<Source xsi:type="opcUa" refId="::Axis:MpAxisBasic_0.Velocity" attribute="value" />
-			<Target xsi:type="brease" contentRefId="contentStart" widgetRefId="txtVelocityCurrent" attribute="value" />
+			<Target xsi:type="brease" contentRefId="contentStart" widgetRefId="numDriveVelocityCurrent" attribute="value" />
 		</Binding>
 		<Binding mode="oneWay">
 			<Source xsi:type="opcUa" refId="::Axis:MpAxisBasic_0.Position" attribute="value" />
-			<Target xsi:type="brease" contentRefId="contentStart" widgetRefId="txtPositionCurrent" attribute="value" />
+			<Target xsi:type="brease" contentRefId="contentStart" widgetRefId="numDrivePositionCurrent" attribute="value" />
 		</Binding>
 		<Binding mode="twoWay">
 			<Source xsi:type="opcUa" refId="::Axis:AxisAcceleration" attribute="value" />
-			<Target xsi:type="brease" contentRefId="contentStart" widgetRefId="numAcceleration" attribute="value" />
+			<Target xsi:type="brease" contentRefId="contentStart" widgetRefId="numDriveAcceleration" attribute="value" />
 		</Binding>
 		<Binding mode="twoWay">
 			<Source xsi:type="opcUa" refId="::Axis:AxisVelocity" attribute="value" />
-			<Target xsi:type="brease" contentRefId="contentStart" widgetRefId="numVelocity" attribute="value" />
-		</Binding>
-		<Binding mode="twoWay">
-			<Source xsi:type="opcUa" refId="::Axis:cmdAxisPower" attribute="value" />
-			<Target xsi:type="brease" contentRefId="contentStart" widgetRefId="btnDrivePower" attribute="value" />
-		</Binding>
-		<Binding mode="twoWay">
-			<Source xsi:type="opcUa" refId="::Axis:cmdAxisHome" attribute="value" />
-			<Target xsi:type="brease" contentRefId="contentStart" widgetRefId="btnHomeAxis" attribute="value" />
-		</Binding>
-		<Binding mode="twoWay">
-			<Source xsi:type="opcUa" refId="::Axis:cmdAxisErrorReset" attribute="value" />
-			<Target xsi:type="brease" contentRefId="contentStart" widgetRefId="btnAckAxisError" attribute="value" />
+			<Target xsi:type="brease" contentRefId="contentStart" widgetRefId="numDriveVelocity" attribute="value" />
 		</Binding>
 		<Binding mode="twoWay">
 			<Source xsi:type="opcUa" refId="::Axis:AxisPosition" attribute="value" />
-			<Target xsi:type="brease" contentRefId="contentStart" widgetRefId="numPosition" attribute="value" />
+			<Target xsi:type="brease" contentRefId="contentStart" widgetRefId="numDrivePosition" attribute="value" />
 		</Binding>
-	</Bindings>
+		<Binding mode="twoWay">
+			<Source xsi:type="opcUa" refId="::Axis:MpAxisBasic_0.IsHomed" attribute="value" />
+			<Target xsi:type="brease" contentRefId="contentStart" widgetRefId="staDriveIsHomed" attribute="value" />
+		</Binding>
+		<Binding mode="twoWay">
+			<Source xsi:type="opcUa" refId="::Axis:MpAxisBasic_0.PowerOn" attribute="value" />
+			<Target xsi:type="brease" contentRefId="contentStart" widgetRefId="staDriveIsPowered" attribute="value" />
+		</Binding>
+		<Binding mode="twoWay">
+			<Source xsi:type="opcUa" refId="::Axis:MpAxisBasic_0.Error" attribute="value" />
+			<Target xsi:type="brease" contentRefId="contentStart" widgetRefId="staDriveHasError" attribute="value" />
+		</Binding>
+		<Binding mode="twoWay">
+			<Source xsi:type="opcUa" refId="::Axis:MpAxisBasic_0.Power" attribute="value" />
+			<Target xsi:type="brease" contentRefId="contentStart" widgetRefId="btnDrivePower" attribute="value" />
+		</Binding>
+		<Binding mode="twoWay">
+			<Source xsi:type="opcUa" refId="::Axis:MpAxisBasic_0.ErrorReset" attribute="value" />
+			<Target xsi:type="brease" contentRefId="contentStart" widgetRefId="btnAckAxisError" attribute="value" />
+		</Binding>
+		<Binding mode="twoWay">
+			<Source xsi:type="opcUa" refId="::Axis:MpAxisBasic_0.Home" attribute="value" />
+			<Target xsi:type="brease" contentRefId="contentStart" widgetRefId="btnDriveHome" attribute="value" />
+		</Binding>
+		<Binding mode="twoWay">
+			<Source xsi:type="opcUa" refId="::Axis:MpAxisBasic_0.MoveAbsolute" attribute="value" />
+			<Target xsi:type="brease" contentRefId="contentStart" widgetRefId="btnDrivePosition" attribute="value" />
+		</Binding>
+		<Binding mode="twoWay">
+			<Source xsi:type="opcUa" refId="::Axis:MpAxisBasic_0.MoveVelocity" attribute="value" />
+			<Target xsi:type="brease" contentRefId="contentStart" widgetRefId="btnDriveVelocity" attribute="value" />
+		</Binding>
+		<Binding mode="twoWay">
+			<Source xsi:type="opcUa" refId="::Axis:MpAxisBasic_0.Stop" attribute="value" />
+			<Target xsi:type="brease" contentRefId="contentStart" widgetRefId="btnDriveStop" attribute="value" />
+		</Binding>
+		<Binding mode="twoWay">
+			<Source xsi:type="opcUa" refId="::Axis:MpAxisAlarm_0.Data.Records.TimeStamp" attribute="value" />
+			<Target xsi:type="brease" contentRefId="contentStart" widgetRefId="tblTimestamp" attribute="stringValue" />
+		</Binding>
+		<Binding mode="twoWay">
+			<Source xsi:type="opcUa" refId="::Axis:MpAxisAlarm_0.Data.Records.EventID" attribute="node" />
+			<Target xsi:type="brease" contentRefId="contentStart" widgetRefId="tblErrorNo" attribute="node" />
+		</Binding>
+		<Binding mode="twoWay">
+			<Source xsi:type="opcUa" refId="::Axis:MpAxisAlarm_0.Data.Records.ErrorText" attribute="value" />
+			<Target xsi:type="brease" contentRefId="contentStart" widgetRefId="tblErrorText" attribute="stringValue" />
+		</Binding>
+		<Binding mode="twoWay">
+			<Source xsi:type="opcUa" refId="::Axis:MpAxisAlarm_0.Status" attribute="value" />
+			<Target xsi:type="brease" contentRefId="contentStart" widgetRefId="txtAlarmStatus" attribute="value" />
+		</Binding>
+	<Binding mode="twoWay">
+<Source xsi:type="opcUa" refId="::Axis:MpAxisBasic_0.Active" attribute="value" />
+<Target xsi:type="brease" contentRefId="contentStart" widgetRefId="grpConfig" attribute="enable" />
+</Binding>
+<Binding mode="twoWay">
+<Source xsi:type="opcUa" refId="::Axis:MpAxisBasic_0.Active" attribute="value" />
+<Target xsi:type="brease" contentRefId="contentStart" widgetRefId="staDriveIsActive" attribute="value" />
+</Binding>
+</Bindings>
 </BindingsSet>

@@ -12,7 +12,6 @@
     <Object Type="Package">AccessAndSecurity</Object>
     <Object Type="Package">mappMotion</Object>
     <Object Type="Package">mappServices</Object>
-    <Object Type="Package">mappSafety</Object>
     <Object Type="Package">mappView</Object>
     <Object Type="Package">mappCockpit</Object>
   </Objects>
