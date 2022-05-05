@@ -24,7 +24,7 @@ The function block MpAxisAlarm uses the PLC logger to read all information for a
 * DTsec
 * DTmsec
 
-The function block MpAxisAlarm is started with a positive flag on the Execute input. The function block will then use the error number from the input ErrorID and search for the last entry of this error number and all depending errors. In addition, the function block checks for axis errors with MC_ReadAxisError and also collects the data from this source. The input Language can be used to switch between English and German error text.
+The function block MpAxisAlarm is started with a positive flag on the Execute input. The function block will then use the error number from the input ErrorID and search for the last entry of this error number and all depending errors. In addition, the function block checks for axis errors with MC_ReadAxisError and collect the data from this source as well. The input Language can be used to switch between English and German error text.
 The function block is reset and the data is cleared when the input Execute is set to false. The input Execute can be directly connected to the Error output of a motion function block.
 
 NOTE! For motion function blocks from the library MpAxis the error from the Info structure should be used for the ErrorID input (ex. MpAxisBasic_0.Info.Diag.Internal.ID)
