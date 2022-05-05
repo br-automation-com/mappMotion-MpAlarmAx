@@ -8,10 +8,11 @@ END_PROGRAM
 // Cyclic part
 // -----------------------------------------------------------------------------------------------------------	
 PROGRAM _CYCLIC
-	IF AxisVelocity <> MpAxisBasicPar_0.Velocity OR AxisAcceleration <> MpAxisBasicPar_0.Acceleration THEN
+	IF AxisVelocity <> MpAxisBasicPar_0.Velocity OR AxisAcceleration <> MpAxisBasicPar_0.Acceleration OR AxisPosition <> MpAxisBasicPar_0.Position THEN
 		MpAxisBasicPar_0.Velocity := AxisVelocity;
 		MpAxisBasicPar_0.Acceleration := AxisAcceleration;
 		MpAxisBasicPar_0.Deceleration := AxisAcceleration;
+		MpAxisBasicPar_0.Position := AxisPosition;
 		MpAxisBasic_0.Update := TRUE;
 	END_IF
 	

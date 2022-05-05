@@ -1,10 +1,13 @@
 (*Local constants*)
 VAR CONSTANT
 	MAX_NO_ENTRIES : USINT := 10; (*Maximum number of records*)
+	MAX_NO_SEARCH : USINT := 100; (*Maximum number of records that searched for the error number*)
 	OVERRIDE : USINT := 10; (*Number of executions per cycle*)
 END_VAR
 (*Error numbers*)
 VAR CONSTANT
 	ERROR_MAX_NO_ENTRIES : UINT := 10000; (*Maximum number of records reached*)
 	ERROR_MPLINK_MISSING : UINT := 10001; (*Axis name is empty*)
+	ERROR_NOT_FOUND : UINT := 10002; (*The error number was not found within the range*)
+	ERROR_ID_MISSING : UINT := 10003; (*ErrorID is 0 and there is no axis error*)
 END_VAR

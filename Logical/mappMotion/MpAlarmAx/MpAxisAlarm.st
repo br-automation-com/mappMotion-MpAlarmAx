@@ -17,6 +17,8 @@ FUNCTION_BLOCK MpAxisAlarm
 		Internal.RecordID := 0;
 		Internal.EventID := 0;
 		Internal.j := 0;
+		Internal.l := 0;
+		Internal.SearchAxisError := FALSE;
 		brsmemset(ADR(Data), 0, SIZEOF(Data));
 		
 		Internal.fbMC_BR_GetHardwareInfo(Execute := FALSE);
@@ -24,16 +26,18 @@ FUNCTION_BLOCK MpAxisAlarm
 		Internal.fbArEventLogReadDescription(Execute := FALSE);
 
 		Internal.State := STATE_FIND_ENTRY;
-		Status := ERR_FUB_ENABLE_FALSE;
-	ELSE
-		// Make sure that axis name is valid
-		IF Axis.mappLinkInternal.Internal[0] = 0 THEN
-			Status := ERROR_MPLINK_MISSING;
-			Internal.State := STATE_ERROR;
-			RETURN;
-		END_IF
+		Status := ERR_OK;
+		RETURN;
 	END_IF
-	
+
+	// -----------------------------------------------------------------------------------------------------------
+	// Make sure that axis name is valid
+	IF Axis.mappLinkInternal.Internal[0] = 0 THEN
+		Status := ERROR_MPLINK_MISSING;
+		Internal.State := STATE_ERROR;
+		RETURN;
+	END_IF
+
 	// -----------------------------------------------------------------------------------------------------------
 	// Get axis name and  error
 	IF Axis.mappLinkInternal.Internal[0] <> 0 THEN
@@ -43,7 +47,15 @@ FUNCTION_BLOCK MpAxisAlarm
 			Internal.fbMC_ReadAxisError(Enable := TRUE, Axis := ADR(Axis));
 		END_IF
 	END_IF
-	
+
+	// -----------------------------------------------------------------------------------------------------------
+	// Make sure that there is a valid error to look for
+	IF Internal.fbMC_ReadAxisError.AxisErrorID = 0 AND ErrorID = 0 THEN
+		Status := ERROR_ID_MISSING;
+		Internal.State := STATE_ERROR;
+		RETURN;
+	END_IF
+
 	// -----------------------------------------------------------------------------------------------------------
 	IF Internal.fbArEventLogGetIdent.Ident <> 0 AND Execute THEN
 		FOR Internal.k:=0 TO OVERRIDE DO
@@ -57,8 +69,9 @@ FUNCTION_BLOCK MpAxisAlarm
 						Status := ERR_FUB_BUSY;
 						Internal.GetParent := FALSE;
 						
+						// -----------------------------------------------------------------------------------------------------------	
 						// Use function error in first run
-						IF Internal.EventID = 0 THEN
+						IF NOT Internal.SearchAxisError THEN
 							Internal.EventID := ErrorID;
 						// Use drive error in second run
 						ELSE
@@ -67,6 +80,7 @@ FUNCTION_BLOCK MpAxisAlarm
 							Internal.fbMC_ReadAxisError(ReadNext := TRUE);
 						END_IF
 						
+						// -----------------------------------------------------------------------------------------------------------	
 						// Read first record
 						Internal.fbArEventLogGetLatestRecordID(Execute := FALSE);
 						Internal.fbArEventLogGetLatestRecordID(Execute := TRUE, Ident := Internal.fbArEventLogGetIdent.Ident);
@@ -80,12 +94,16 @@ FUNCTION_BLOCK MpAxisAlarm
 						Internal.fbArEventLogReadObjectID(Execute := FALSE);
 						Internal.fbArEventLogReadObjectID(Execute := TRUE, Ident := Internal.fbArEventLogGetIdent.Ident, RecordID := Internal.RecordID);
 
+						// -----------------------------------------------------------------------------------------------------------	
 						// Found error id we are looking for			
-						IF Internal.fbArEventLogRead.EventID = ErrorID AND Internal.fbArEventLogReadObjectID.ObjectID = Internal.fbMC_BR_GetHardwareInfo.HardwareInfo.Axis.AxisName THEN
+						IF Internal.fbArEventLogRead.EventID = Internal.EventID AND Internal.fbArEventLogReadObjectID.ObjectID = Internal.fbMC_BR_GetHardwareInfo.HardwareInfo.Axis.AxisName THEN
 							Internal.State := STATE_FIND_DEPENDECIES;
 							EXIT;
 						END_IF;
+					// -----------------------------------------------------------------------------------------------------------	
+					// Continue to read logger entries
 					ELSE
+						// -----------------------------------------------------------------------------------------------------------	
 						// Read next record
 						Internal.fbArEventLogGetPreviousRecordID(Execute := FALSE);
 						Internal.fbArEventLogGetPreviousRecordID(Execute := TRUE, Ident	:= Internal.fbArEventLogGetIdent.Ident, RecordID:= Internal.RecordID);
@@ -99,16 +117,34 @@ FUNCTION_BLOCK MpAxisAlarm
 						Internal.fbArEventLogReadObjectID(Execute := FALSE);
 						Internal.fbArEventLogReadObjectID(Execute := TRUE, Ident := Internal.fbArEventLogGetIdent.Ident, RecordID:= Internal.RecordID);
 		
+						// -----------------------------------------------------------------------------------------------------------	
 						// Found error id we are looking for			
-						IF Internal.fbArEventLogRead.EventID = ErrorID AND Internal.fbArEventLogReadObjectID.ObjectID = Internal.fbMC_BR_GetHardwareInfo.HardwareInfo.Axis.AxisName THEN
+						IF Internal.fbArEventLogRead.EventID = Internal.EventID AND Internal.fbArEventLogReadObjectID.ObjectID = Internal.fbMC_BR_GetHardwareInfo.HardwareInfo.Axis.AxisName THEN
 							Internal.State := STATE_FIND_DEPENDECIES;
 							EXIT;
 						END_IF;
+						
+						// -----------------------------------------------------------------------------------------------------------	
+						// Make sure we dont search for indefinetly
+						Internal.l := Internal.l + 1;
+						IF Internal.l > MAX_NO_SEARCH THEN
+							// Check if we have an axis error
+							IF Internal.fbMC_ReadAxisError.AxisErrorID <> 0 AND NOT Internal.SearchAxisError THEN
+								Internal.RecordID := 0;
+								Internal.l := 0;
+								Internal.SearchAxisError := TRUE;
+							// Generate error when the error was not found
+							ELSE
+								Status := ERROR_NOT_FOUND;
+								Internal.State := STATE_ERROR;	
+							END_IF
+						END_IF
 					END_IF	
-					// -----------------------------------------------------------------------------------------------------------
+				// -----------------------------------------------------------------------------------------------------------
 				// Find dependencies and read details
 				// -----------------------------------------------------------------------------------------------------------	
 				STATE_FIND_DEPENDECIES:
+					// -----------------------------------------------------------------------------------------------------------	
 					// Get parent record
 					IF Internal.GetParent THEN
 						Internal.RecordID := Internal.fbArEventLogRead.OriginRecordID;
@@ -117,11 +153,14 @@ FUNCTION_BLOCK MpAxisAlarm
 					END_IF
 					Internal.GetParent := TRUE;
 					
+					// -----------------------------------------------------------------------------------------------------------	
 					// Get error number
 					Internal.fbArEventLogReadErrorNumber(Execute := FALSE);
 					Internal.fbArEventLogReadErrorNumber(Execute := TRUE, Ident	:= Internal.fbArEventLogGetIdent.Ident, RecordID:= Internal.RecordID);
 					
-					Data.Records.ErrorNumber[Data.RecordsTotal] := Internal.fbArEventLogReadErrorNumber.ErrorNumber;
+					// -----------------------------------------------------------------------------------------------------------	
+					// Transfer data into structure
+					Data.Records.ErrorNumber[Data.RecordsTotal] := Internal.fbArEventLogReadErrorNumber.ErrorNumber;					
 					Data.Records.Severity[Data.RecordsTotal] := Internal.fbArEventLogReadErrorNumber.Severity;
 					Data.Records.RecordID[Data.RecordsTotal] := Internal.RecordID;
 					Data.Records.OriginRecordID[Data.RecordsTotal] := Internal.fbArEventLogRead.OriginRecordID;
@@ -144,12 +183,14 @@ FUNCTION_BLOCK MpAxisAlarm
 
 					Data.RecordsTotal := Data.RecordsTotal + 1;
 					
+					// -----------------------------------------------------------------------------------------------------------	
 					// Make sure we dont exceed entry limit
 					IF Data.RecordsTotal > MAX_NO_ENTRIES THEN
 						Status := ERROR_MAX_NO_ENTRIES;
 						Internal.State := STATE_ERROR;
 					END_IF
 						
+					// -----------------------------------------------------------------------------------------------------------	
 					// Jump to next step when there no more dependencies
 					IF Internal.fbArEventLogRead.OriginRecordID = 0 THEN
 						Internal.State := STATE_READ_TEXT;
@@ -159,6 +200,7 @@ FUNCTION_BLOCK MpAxisAlarm
 				// Read error text
 				// -----------------------------------------------------------------------------------------------------------	
 				STATE_READ_TEXT:
+					// -----------------------------------------------------------------------------------------------------------	
 					// Set text language
 					CASE Language OF
 						REL_ERR_LANGUAGE_DE: Internal.fbArEventLogReadDescription.LanguageCode := 'de';
@@ -168,17 +210,23 @@ FUNCTION_BLOCK MpAxisAlarm
 					END_CASE;
 					Internal.fbArEventLogReadDescription(Execute := TRUE, Ident := Internal.fbArEventLogGetIdent.Ident, RecordID := Data.Records.RecordID[Internal.j], TextBuffer := ADR(Internal.InternalDescription), TextBufferSize := SIZEOF(Internal.InternalDescription));
 					
+					// -----------------------------------------------------------------------------------------------------------	
 					// Success
 					IF Internal.fbArEventLogReadDescription.Done = TRUE THEN
 						Internal.FB_httpUtf8ToString(enable := TRUE, pSrc := ADR(Internal.InternalDescription), pDest := ADR(Data.Records.ErrorText[Internal.j]), destSize := SIZEOF(Data.Records.ErrorText[Internal.j]));
 						Internal.fbArEventLogReadDescription(Execute := FALSE);
 						Internal.j := Internal.j + 1;
 						
+						// -----------------------------------------------------------------------------------------------------------	
 						// Last entry reached
 						IF Internal.j = Data.RecordsTotal THEN
 							// Read axis errors if there are any
 							IF Internal.fbMC_ReadAxisError.AxisErrorID <> 0 AND Internal.fbMC_ReadAxisError.AxisErrorID <> ErrorID THEN
+								Internal.l := 0;
+								Internal.RecordID := 0;
+								Internal.SearchAxisError := TRUE;
 								Internal.State := STATE_FIND_ENTRY;
+								EXIT;
 							// Finish up
 							ELSE
 								Internal.State := STATE_DONE;
@@ -186,6 +234,7 @@ FUNCTION_BLOCK MpAxisAlarm
 								EXIT;
 							END_IF
 						END_IF
+					// -----------------------------------------------------------------------------------------------------------	
 					// Error
 					ELSIF Internal.fbArEventLogReadDescription.Error = TRUE THEN
 						Status := Internal.fbArEventLogReadDescription.StatusID;

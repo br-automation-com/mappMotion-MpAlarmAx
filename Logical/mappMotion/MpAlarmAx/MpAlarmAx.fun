@@ -4,14 +4,14 @@
 		Execute : {REDUND_UNREPLICABLE} BOOL;
 		Axis : REFERENCE TO McAxisType;
 		ErrorID : {REDUND_UNREPLICABLE} DINT;
-		Language : {REDUND_UNREPLICABLE} ReadEvLogEntriesLanguage_enum := REL_ERR_LANGUAGE_EN;
+		Language : {REDUND_UNREPLICABLE} MpAlarmAxLanguage_enum := REL_ERR_LANGUAGE_EN;
 	END_VAR
 	VAR_OUTPUT
-		Data : {REDUND_UNREPLICABLE} Data_typ; (* *) (* *) (*#PAR*)
+		Data : {REDUND_UNREPLICABLE} MpAlarmAxData_typ; (* *) (* *) (*#PAR*)
 	END_VAR
 	VAR
 		Status : {REDUND_UNREPLICABLE} DINT;
-		Internal : {REDUND_UNREPLICABLE} Internal_typ;
+		Internal : {REDUND_UNREPLICABLE} MpAlarmAxInternal_typ;
 	END_VAR
 END_FUNCTION_BLOCK
 
