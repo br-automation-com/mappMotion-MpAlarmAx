@@ -6,7 +6,7 @@
 
 <a name="Introduction"></a>
 ## Introduction
-The function block MpAxisAlarm reads all error messages for a specific axis. This function block is open source, community based software and not an official B&R software. It is not an official mapp component and the name just indicates that it is intended to be used with mappMotion.
+The function block MpAxisAlarm reads all error messages for a specific axis. This function block is open source, community based software and not an official B&R software. It is not an official mapp component and the name just indicates that it is intended to be used with mappMotion. **With mapp 5.20 an equivalent function block exists within the standard library MC_BR_ReadErrorText.**
 
 ![](/Logical/mappMotion/screenshot.png)
 
